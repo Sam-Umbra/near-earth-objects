@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"python.terminal.executeInFileDir": true,
+		"python.analysis.extraPaths": ["./src"],
+		"python.envFile": "${workspaceFolder}/.env",
+		"jupyter.interactiveWindow.textEditor.executeSelection": true,
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "charliermarsh.ruff",
+		"python.analysis.typeCheckingMode": "standard",
+		"jupyter.notebookFileRoot": "${workspaceFolder}"
+	}
+}
