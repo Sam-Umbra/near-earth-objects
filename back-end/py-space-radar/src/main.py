@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import joblib
-import numpy as np
+import pandas as pd
 from src.config import MODELS_DIR
 
 app = FastAPI(
@@ -29,30 +29,32 @@ class AsteroidData(BaseModel):
 @app.post("/predict")
 async def predict_hazard(data: AsteroidData):
     try:
-        est_diameter_avg = (data.est_diameter_min + data.est_diameter_max) / 2
-        features = np.array(
-            [
-                [
-                    data.est_diameter_min,
-                    data.relative_velocity,
-                    data.miss_distance,
-                    data.absolute_magnitude,
-                    data.est_diameter_max,
-                    est_diameter_avg,
-                ]
-            ]
-        )
+        input_dict = {
+            "est_diameter_min": data.est_diameter_min,
+            "relative_velocity": data.relative_velocity,
+            "miss_distance": data.miss_distance,
+            "absolute_magnitude": data.absolute_magnitude,
+            "est_diameter_max": data.est_diameter_max,
+            "est_diameter_avg": (data.est_diameter_min + data.est_diameter_max) / 2,
+        }
 
-        features_scaled = scaler.transform(features)
-        prediction = model.predict(features_scaled)[0]
-        probability = model.predict_proba(features_scaled)[0][1]
+        X_input = pd.DataFrame([input_dict])
+
+        X_scaled = scaler.transform(X_input)
+
+        prediction = model.predict(X_scaled)[0]
+        probability = model.predict_proba(X_scaled)[0][1]
 
         return {
             "is_hazardous": bool(prediction),
             "confidence_score": round(float(probability), 4),
+            "status": "success",
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Internal processing error: {str(e)}")
+        print(f"Processing Error: {e}")
+        raise HTTPException(
+            status_code=500, detail=f"Internal processing error: {str(e)}"
+        )
 
 
 @app.get("/health")

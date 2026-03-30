@@ -2,15 +2,14 @@ import pandas as pd
 from pathlib import Path
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
-
-# from src.config import DATA_DIR
+from src.config import DATA_DIR
 import numpy as np
 
 label_encoder = LabelEncoder()
 
 
 def get_processed_data(filepath: Path):
-    df = pd.read_csv(filepath)
+    df = pd.read_csv(filepath, index_col=0)
 
     df = df.drop(columns=["id", "name", "orbitating_body"], errors="ignore")
     df = df.dropna()
@@ -48,11 +47,11 @@ def create_sim_asteroids_data(n_samples=1000) -> pd.DataFrame:
     return df
 
 
-""" df_raw = create_sim_asteroids_data(n_samples=2000)
+df_raw = create_sim_asteroids_data(n_samples=2000)
 df_raw["est_diameter_max"] = df_raw["est_diameter_min"] * np.random.uniform(
     1.1, 1.4, len(df_raw)
 )
 
-save_path = DATA_DIR / 'data.csv'
+save_path = DATA_DIR / "data.csv"
 
-df_raw.to_csv(save_path) """
+df_raw.to_csv(save_path)
