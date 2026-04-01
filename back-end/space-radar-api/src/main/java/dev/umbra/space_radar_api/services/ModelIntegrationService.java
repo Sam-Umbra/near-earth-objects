@@ -11,25 +11,20 @@ import dev.umbra.space_radar_api.models.dtos.PredictionResponse;
 /**
  * Service responsible for integrating with the Machine Learning model.
  * It sends asteroid data to an external API to predict potential hazards.
- * <p>
- * Serviço responsável pela integração com o modelo de Machine Learning.
- * Ele envia dados de asteroides para uma API externa para prever perigos potenciais.
  */
 @Service
 public class ModelIntegrationService {
 
     private final RestClient restClient;
 
-    /** The URL of the external ML model API. / A URL da API externa do modelo de ML. */
+    /** The URL of the external ML model API. */
     @Value("${ml_http_url}")
     private String modelUrl;
 
     /**
      * Constructs a new ModelIntegrationService with the required RestClient.
-     * <p>
-     * Constrói um novo ModelIntegrationService com o RestClient necessário.
      * 
-     * @param restClient the client used to make HTTP requests / o cliente usado para fazer requisições HTTP
+     * @param restClient the client used to make HTTP requests
      */
     public ModelIntegrationService(RestClient restClient) {
         this.restClient = restClient;
@@ -37,12 +32,10 @@ public class ModelIntegrationService {
 
     /**
      * Sends asteroid data to the ML model and retrieves the hazard prediction.
-     * <p>
-     * Envia dados de asteroides para o modelo de ML e recupera a previsão de perigo.
      * 
-     * @param data the asteroid data to be analyzed / os dados do asteroide a serem analisados
-     * @return the prediction response from the model / a resposta de previsão do modelo
-     * @throws RestClientException if the communication with the model fails / se a comunicação com o modelo falhar
+     * @param data the asteroid data to be analyzed
+     * @return the prediction response from the model
+     * @throws RestClientException if the communication with the model fails
      */
     public PredictionResponse predictAsteroidHazard(AsteroidData data) {
         try {
