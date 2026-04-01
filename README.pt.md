@@ -79,27 +79,52 @@ server.port=8080
 ```
 
 ---
-
+ 
 ## 🏃 Como Rodar
-
+ 
 **1. Clonar o repositório:**
 ```bash
-git clone https://github.com/seu-usuario/space-radar.git
-cd space-radar
+git clone https://github.com/sam-umbra/space-radar.git
+cd space-radar/space-radar-api
 ```
-
+ 
 **2. Limpar e compilar o projeto:**
 ```bash
 mvn clean install
 ```
-
+ 
 **3. Executar a aplicação:**
 ```bash
 mvn spring-boot:run
 ```
-
+ 
 Com a aplicação rodando, as detecções podem ser acompanhadas via **logs do console** ou através de um **cliente WebSocket** apontado para `ws://localhost:8080`.
-
+ 
+---
+ 
+## 🐍 Como Rodar o Serviço Python ML
+ 
+A API Java depende do servidor de inferência Python. Inicie-o **antes** da aplicação Java.
+ 
+**1. Clonar o repositório:**
+```bash
+git clone https://github.com/sam-umbra/space-radar.git
+cd space-radar/py-space-radar
+```
+ 
+**2. Instalar as dependências:**
+```bash
+pip install -r requirements.txt
+# conda env update --file environment.yml --prune (Se você estiver usando Conda)
+```
+ 
+**3. Executar o servidor FastAPI:**
+```bash
+uvicorn src.main:app --reload --host 127.0.0.1 --port 8000
+```
+ 
+O endpoint de inferência estará disponível em `http://127.0.0.1:8000/predict`, correspondendo à propriedade `ml_http_url` na configuração Java.
+ 
 ---
 
 ## 🏗️ Status do Front-end
