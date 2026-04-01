@@ -10,6 +10,13 @@ import dev.umbra.space_radar_api.services.ModelIntegrationService;
 import dev.umbra.space_radar_api.services.NasaService;
 import dev.umbra.space_radar_api.services.WebSocketService;
 
+/**
+ * Orchestrator component that manages the periodic scanning of space for asteroids.
+ * It coordinates data retrieval from NASA, hazard prediction via ML, and real-time broadcasting.
+ * <p>
+ * Componente orquestrador que gerencia a varredura periódica do espaço em busca de asteroides.
+ * Ele coordena a recuperação de dados da NASA, a previsão de perigo via ML e a transmissão em tempo real.
+ */
 @Component
 public class RadarOrchestrator {
 
@@ -19,8 +26,16 @@ public class RadarOrchestrator {
     @Autowired
     private WebSocketService broadcastService;
 
-    @Autowired NasaService nasaService;
+    @Autowired
+    private NasaService nasaService;
 
+    /**
+     * Scheduled task that performs a space scan every 10 seconds.
+     * Fetches the next asteroid, predicts its hazard level, and broadcasts the result.
+     * <p>
+     * Tarefa agendada que realiza uma varredura espacial a cada 10 segundos.
+     * Busca o próximo asteroide, prevê seu nível de perigo e transmite o resultado.
+     */
     @Scheduled(fixedRate = 10000)
     public void scanSpace() {
         AsteroidData asteroid = nasaService.getNextAsteroid();
