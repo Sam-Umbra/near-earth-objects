@@ -39,8 +39,8 @@ The system operates in a cyclic orchestration flow:
 
 ```
 ┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐     ┌──────────────────┐
-│  Data Harvesting │────▶│  Orchestration   │────▶│  ML Inference   │────▶│    Broadcast     │
-│  (NASA NeoWS)   │     │  (every 10 sec)   │     │  (FastAPI/POST) │     │  (WebSocket)     │
+│ Data Harvesting │───▶ │  Orchestration   │───▶│  ML Inference   │───▶│    Broadcast     │
+│ (NASA NeoWS)    │     │  (every 10 sec)  │     │  (FastAPI/POST) │     │  (WebSocket)     │
 └─────────────────┘     └──────────────────┘     └─────────────────┘     └──────────────────┘
 ```
 
@@ -163,9 +163,3 @@ py-space-radar/
 Contributions are welcome! Feel free to open issues or submit pull requests.
 
 ---
-
-<div align="center">
-
-Built with ☕ Java & 🛸 curiosity about what's out there.
-
-</div>
