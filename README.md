@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🛰️ Space Radar API
+# 🛰️ Space Radar
 
 **Real-time monitoring system for Near-Earth Objects with AI-powered collision risk classification.**
 
@@ -77,29 +77,53 @@ ml_http_url=http://127.0.0.1:8000/predict
 # Server Settings
 server.port=8080
 ```
-
 ---
-
+ 
 ## 🏃 How to Run
-
+ 
 **1. Clone the repository:**
 ```bash
-git clone https://github.com/your-username/space-radar.git
-cd space-radar
+git clone https://github.com/sam-umbra/space-radar.git
+cd space-radar/space-radar-api
 ```
-
+ 
 **2. Clean and build the project:**
 ```bash
 mvn clean install
 ```
-
+ 
 **3. Run the application:**
 ```bash
 mvn spring-boot:run
 ```
-
+ 
 Once running, detections can be monitored via **console logs** or through a **WebSocket client** pointed at `ws://localhost:8080`.
-
+ 
+---
+ 
+## 🐍 How to Run the Python ML Service
+ 
+The Java API depends on the Python inference server. Start it **before** the Java application.
+ 
+**1. Clone the repository:**
+```bash
+git clone https://github.com/sam-umbra/space-radar.git
+cd space-radar/py-space-radar
+```
+ 
+**2. Install dependencies:**
+```bash
+pip install -r requirements.txt
+# conda env update --file environment.yml --prune (If you're using conda)
+```
+ 
+**3. Run the FastAPI server:**
+```bash
+uvicorn src.main:app --reload --host 127.0.0.1 --port 8000
+```
+ 
+The inference endpoint will be available at `http://127.0.0.1:8000/predict`, matching the `ml_http_url` property in the Java configuration.
+ 
 ---
 
 ## 🏗️ Front-end Status
