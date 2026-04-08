@@ -1,0 +1,115 @@
+.features {
+  padding: 8rem 1.5rem;
+  position: relative;
+
+  &_inner {
+    max-width: 72rem;
+    margin: 0 auto;
+  }
+
+  &_header {
+    text-align: center;
+    margin-bottom: 5rem;
+  }
+
+  &_eyebrow {
+    font-family: var(--font-space, 'Space Mono', monospace);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--primary, hsl(193, 100%, 50%));
+  }
+
+  &_title {
+    font-family: var(--font-space, 'Space Mono', monospace);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--foreground, hsl(210, 40%, 92%));
+    margin: 1rem 0 0;
+  }
+
+  &_grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  &_card {
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--border, hsl(228, 30%, 20%));
+    background: hsl(228 40% 10% / 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition:
+      opacity 0.55s ease,
+      transform 0.55s ease,
+      border-color 0.3s ease,
+      background 0.3s ease;
+
+    opacity: 0;
+    transform: translateY(28px);
+
+    &--visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    &:hover {
+      border-color: hsl(193 100% 50% / 0.3);
+      background: hsl(228 40% 10% / 0.75);
+    }
+
+    &--accent:hover {
+      border-color: hsl(36 100% 50% / 0.3);
+    }
+  }
+
+  &_card-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    flex-shrink: 0;
+    background: hsl(193 100% 50% / 0.1);
+    color: var(--primary, hsl(193, 100%, 50%));
+
+    &--accent {
+      background: hsl(36 100% 50% / 0.1);
+      color: var(--accent, hsl(36, 100%, 50%));
+    }
+
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      flex-shrink: 0;
+    }
+  }
+
+  &_card-title {
+    font-family: var(--font-space, 'Space Mono', monospace);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--foreground, hsl(210, 40%, 92%));
+    margin: 0 0 0.5rem;
+  }
+
+  &_card-desc {
+    font-size: 0.875rem;
+    line-height: 1.65;
+    color: var(--muted-foreground, hsl(215, 20%, 55%));
+    margin: 0;
+  }
+}

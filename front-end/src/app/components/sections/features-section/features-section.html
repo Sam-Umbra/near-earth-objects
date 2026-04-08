@@ -1,0 +1,27 @@
+<section id="features" class="features">
+  <div class="features_inner">
+    <div class="features_header">
+      <span class="features_eyebrow">Capabilities</span>
+      <h2 class="features_title">System Features</h2>
+    </div>
+
+    <div class="features_grid">
+      @for (feature of features; track feature.title; let i = $index) {
+        <div
+          #featureCard
+          class="features_card"
+          [class.features_card--accent]="feature.color === 'accent'"
+          [style.transition-delay]="i * 0.08 + 's'"
+        >
+          <div
+            class="features_card-icon"
+            [class.features_card-icon--accent]="feature.color === 'accent'"
+            [innerHTML]="feature.icon"
+          ></div>
+          <h3 class="features_card-title">{{ feature.title }}</h3>
+          <p class="features_card-desc">{{ feature.description }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>

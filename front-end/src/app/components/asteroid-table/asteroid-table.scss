@@ -65,12 +65,19 @@
 
   &_scroll {
     height: 420px;
+    overflow-x: auto; // horizontal scroll on mobile
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
     scrollbar-color: hsl(228, 30%, 25%) transparent;
 
+    @media (max-width: 639px) {
+      height: 280px; // shorter on phones
+    }
+
     &::-webkit-scrollbar {
       width: 4px;
+      height: 4px;
     }
     &::-webkit-scrollbar-track {
       background: transparent;
@@ -83,6 +90,7 @@
 
   &_table {
     width: 100%;
+    min-width: 520px; // prevents columns crushing on small screens
     border-collapse: collapse;
     font-size: 0.875rem;
   }
@@ -121,25 +129,23 @@
     &:hover {
       background: hsl(228, 30%, 18%, 0.5);
     }
-
     &--selected {
       background: hsl(193 100% 50% / 0.1);
-
-      &:hover {
-        background: hsl(193 100% 50% / 0.15);
-      }
+    }
+    &--selected:hover {
+      background: hsl(193 100% 50% / 0.15);
     }
   }
 
   &_td {
     padding: 0.625rem 1rem;
     color: var(--muted-foreground, hsl(215, 20%, 55%));
+    white-space: nowrap;
 
     &--name {
       font-family: var(--font-space, 'Space Mono', monospace);
       color: var(--foreground, hsl(210, 40%, 92%));
     }
-
     &--right {
       text-align: right;
     }
@@ -165,13 +171,11 @@
       color: hsl(193, 100%, 50%);
       border-color: hsl(193 100% 50% / 0.3);
     }
-
     &--caution {
       background: hsl(36 100% 50% / 0.15);
       color: hsl(36, 100%, 50%);
       border-color: hsl(36 100% 50% / 0.3);
     }
-
     &--danger {
       background: hsl(0 85% 55% / 0.15);
       color: hsl(0, 85%, 55%);

@@ -11,61 +11,58 @@
   .main_stat-cards {
     display: grid;
     gap: 1rem;
-
     grid-template-columns: repeat(2, minmax(0, 1fr));
 
     @media (min-width: 1024px) {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
-
-    .main_stat-card {
-      padding: 1.5rem;
-      border: 1px solid #eee;
-      border-radius: 8px;
-    }
   }
+
   .main_content {
     display: grid;
-    gap: 1.5rem;
-    align-items: stretch;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 
     @media (min-width: 1024px) {
+      gap: 1.5rem;
       grid-template-columns: repeat(5, minmax(0, 1fr));
+      align-items: start;
     }
 
     .main_asteroid-table {
-      grid-column: span 1 / span 1;
-      align-items: stretch;
+      grid-column: 1 / -1;
 
       @media (min-width: 1024px) {
         grid-column: span 3 / span 3;
       }
+
       background-color: rgba(15, 23, 41, 0.1);
       border-radius: 0.75rem;
       overflow: hidden;
     }
 
     .main_asteroid-detail {
-      grid-column: span 1 / span 1;
-      height: 100%;
+      grid-column: 1 / -1;
 
       @media (min-width: 1024px) {
         grid-column: span 2 / span 2;
-      }
-
-      & > * + * {
-        margin-top: 1.5rem;
+        height: 100%;
       }
     }
 
     .main_asteroid-charts {
       grid-column: 1 / -1;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: 1fr;
+      align-items: stretch;
 
-      @media (min-width: 1024px) {
+      @media (min-width: 640px) {
+        gap: 1.5rem;
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
