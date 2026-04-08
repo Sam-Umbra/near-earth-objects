@@ -13,62 +13,67 @@ import dev.umbra.space_radar_api.models.dtos.AsteroidData;
 import tools.jackson.databind.JsonNode;
 
 /**
- * Service responsible for interacting with the NASA NeoWS (Near Earth Object Web Service) API.
- * It fetches, caches, and provides asteroid data for a specific date.
+ * Service responsible for interacting with the NASA NeoWS API.
+ * Fetches a 7-day window (3 days past + today + 3 days ahead) so both
+ * historical close-approaches and upcoming ones are included.
  */
 @Service
 public class NasaService {
+
+    /** NASA NeoWS allows a maximum window of 7 days per request. */
+    private static final int DAYS_BEFORE = 3;
+    private static final int DAYS_AFTER = 3;
 
     private final RestClient restClient;
 
     @Value("${nasa_api_key}")
     private String apiKey;
 
-    /** The date of the last successful data fetch. */
-    private LocalDate lastFetchDate;
-    
-    /** The current position in the asteroid list. */
+    /** The window start date of the last successful fetch. */
+    private LocalDate lastFetchWindowStart;
+
+    /** Current position in the cached asteroid list. */
     private int currentIndex;
 
-    /** Cached list of asteroids for the current date. */
+    /** Cached list of asteroids for the current window. */
     private List<AsteroidData> asteroidList = new ArrayList<>();
 
-    /**
-     * Constructs a new NasaService with the required RestClient.
-     * 
-     * @param restClient the client used to make HTTP requests
-     */
     public NasaService(RestClient restClient) {
         this.restClient = restClient;
     }
 
     /**
-     * Retrieves the next asteroid from the list. If the list is empty or the date has changed, 
-     * it fetches new data from NASA.
-     * 
-     * @return the next AsteroidData object, or null if none are available
+     * Retrieves the next asteroid from the cache.
+     * Re-fetches when the list is exhausted or the calendar day has changed
+     * (which shifts the 7-day window forward).
+     *
+     * @return the next AsteroidData, or null if none are available
      */
     public AsteroidData getNextAsteroid() {
-        LocalDate today = LocalDate.now();
+        LocalDate windowStart = LocalDate.now().minusDays(DAYS_BEFORE);
 
-        if (asteroidList.isEmpty() || currentIndex >= asteroidList.size() || !today.equals(lastFetchDate)) {
-            asteroidList = fetchNasaApi(today, today);
+        boolean windowShifted = !windowStart.equals(lastFetchWindowStart);
+        boolean listExhausted = asteroidList.isEmpty() || currentIndex >= asteroidList.size();
+
+        if (listExhausted || windowShifted) {
+            LocalDate windowEnd = LocalDate.now().plusDays(DAYS_AFTER);
+            asteroidList = fetchNasaApi(windowStart, windowEnd);
             currentIndex = 0;
-            lastFetchDate = today;
+            lastFetchWindowStart = windowStart;
         }
 
         if (asteroidList.isEmpty())
             return null;
-
         return asteroidList.get(currentIndex++);
     }
 
     /**
-     * Performs the HTTP request to the NASA API to fetch asteroid data for a date range.
-     * 
-     * @param startDate the start date for the search
-     * @param endDate the end date for the search
-     * @return a list of processed AsteroidData
+     * Performs the HTTP request to NASA NeoWS for the given date range.
+     * Maximum allowed range is 7 days.
+     *
+     * @param startDate window start (inclusive)
+     * @param endDate   window end (inclusive)
+     * @return list of parsed AsteroidData, empty on error
      */
     private List<AsteroidData> fetchNasaApi(LocalDate startDate, LocalDate endDate) {
         try {
@@ -84,31 +89,27 @@ public class NasaService {
             return cleanNasaData(rawData);
 
         } catch (RestClientException e) {
-            System.err.println("Error fetching Nasa Api: " + e.getMessage());
+            System.err.println("[NasaService] Error fetching NASA API: " + e.getMessage());
             return new ArrayList<>();
         }
     }
 
     /**
-     * Parses the raw JSON response from NASA into a list of AsteroidData DTOs.
-     * 
-     * @param data the raw JsonNode from the API
-     * @return a list of mapped AsteroidData objects
+     * Parses the raw NASA JSON response into AsteroidData DTOs.
+     *
+     * @param data raw JsonNode from the API
+     * @return list of mapped AsteroidData objects
      */
     private List<AsteroidData> cleanNasaData(JsonNode data) {
         List<AsteroidData> list = new ArrayList<>();
 
-        if (data == null || !data.has("near_earth_objects")) {
+        if (data == null || !data.has("near_earth_objects"))
             return list;
-        }
 
-        JsonNode nearEarthObjects = data.path("near_earth_objects");
-
-        nearEarthObjects.properties().forEach(entry -> {
-            JsonNode asteroidsInDate = entry.getValue();
-
-            if (asteroidsInDate.isArray()) {
-                for (JsonNode asteroid : asteroidsInDate) {
+        data.path("near_earth_objects").properties().forEach(entry -> {
+            JsonNode asteroidsForDay = entry.getValue();
+            if (asteroidsForDay.isArray()) {
+                for (JsonNode asteroid : asteroidsForDay) {
                     list.add(AsteroidData.fromEntity(asteroid));
                 }
             }
@@ -116,5 +117,4 @@ public class NasaService {
 
         return list;
     }
-
 }

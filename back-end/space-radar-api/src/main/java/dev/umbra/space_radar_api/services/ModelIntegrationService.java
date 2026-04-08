@@ -1,6 +1,10 @@
 package dev.umbra.space_radar_api.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
@@ -32,21 +36,29 @@ public class ModelIntegrationService {
 
     /**
      * Sends asteroid data to the ML model and retrieves the hazard prediction.
-     * 
+     * Returns an empty Optional if the model is unreachable or returns an
+     * unexpected response,
+     * allowing the scheduler to skip gracefully instead of crashing.
+     *
      * @param data the asteroid data to be analyzed
-     * @return the prediction response from the model
-     * @throws RestClientException if the communication with the model fails
+     * @return an Optional containing the prediction, or empty if the model is
+     *         inaccessible
      */
-    public PredictionResponse predictAsteroidHazard(AsteroidData data) {
+    public Optional<PredictionResponse> predictAsteroidHazard(AsteroidData data) {
         try {
-            return restClient.post()
+            PredictionResponse response = restClient.post()
                     .uri(this.modelUrl)
+                    .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                     .body(data)
                     .retrieve()
                     .body(PredictionResponse.class);
+
+            return Optional.ofNullable(response);
+
         } catch (RestClientException e) {
-            System.err.println("Communication error with prediction model: " + e.getMessage());
-            throw new RestClientException("Prediction model inaccessible", e);
+            System.err.println("[ModelIntegrationService] Prediction model inaccessible: " + e.getMessage());
+            return Optional.empty();
         }
     }
 
