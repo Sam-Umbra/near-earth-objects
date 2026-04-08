@@ -30,7 +30,7 @@ public class RadarOrchestrator {
      * Scheduled task that performs a space scan every 10 seconds.
      * Fetches the next asteroid, predicts its hazard level, and broadcasts the result.
      */
-    @Scheduled(fixedRate = 10000)
+    @Scheduled(fixedRate = 5000)
     public void scanSpace() {
         AsteroidData asteroid = nasaService.getNextAsteroid();
 

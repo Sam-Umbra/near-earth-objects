@@ -28,6 +28,6 @@ public class WebSocketService {
      */
     public void radarAnalysis(PredictionResponse result) {
         messagingTemplate.convertAndSend("/radar/prediction", result);
-        System.out.println("Successful transmission. Is the asteroid potentially dangerous: " + result.isPotentiallyHazardous());
+        System.out.println("Successful transmission. Is the asteroid with id " + result.id() + " potentially dangerous: " + result.isPotentiallyHazardous());
     }
 }
