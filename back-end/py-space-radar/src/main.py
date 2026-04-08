@@ -10,6 +10,7 @@ from pydantic import BaseModel
 import joblib
 import pandas as pd
 from src.config import MODELS_DIR
+from datetime import date
 
 app = FastAPI(
     title="Space radar ML API",
@@ -44,6 +45,7 @@ class AsteroidData(BaseModel):
     relative_velocity: float
     miss_distance: float
     absolute_magnitude: float
+    approach_date: date
 
 
 @app.post("/predict")
@@ -86,6 +88,7 @@ async def predict_hazard(data: AsteroidData):
             "miss_distance": data.miss_distance,
             "absolute_magnitude": data.absolute_magnitude,
             "est_diameter_max": data.est_diameter_max,
+            "approach_date": data.approach_date
         }
     except Exception as e:
         print(f"Processing Error: {e}")
