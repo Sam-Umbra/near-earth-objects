@@ -1,0 +1,14 @@
+<main class="star-field">
+  @for (star of stars; track $index) {
+    <div
+      class="star-field_star"
+      [style.left.%]="star.x"
+      [style.top.%]="star.y"
+      [style.width.px]="star.size"
+      [style.height.px]="star.size"
+      [style.opacity]="star.opacity"
+      [style.animation-delay.s]="star.delay"
+      [style.animation-duration.s]="star.duration"
+    ></div>
+  }
+</main>

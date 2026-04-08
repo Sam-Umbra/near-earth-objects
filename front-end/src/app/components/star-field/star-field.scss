@@ -1,0 +1,25 @@
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: var(--star-opacity, 0.4);
+    transform: scale(1);
+  }
+  50% {
+    opacity: calc(var(--star-opacity, 0.4) * 0.3);
+    transform: scale(0.6);
+  }
+}
+
+.star-field {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+
+  &_star {
+    position: absolute;
+    border-radius: 50%;
+    background-color: var(--foreground, hsl(210, 40%, 92%));
+    animation: pulse-glow ease-in-out infinite;
+  }
+}

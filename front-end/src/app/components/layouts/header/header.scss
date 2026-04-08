@@ -1,0 +1,111 @@
+:host {
+  --color-primary: #22d3ee; // cyan-400
+  --color-safe: #4ade80; // green-400
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-card-bg: rgba(15, 23, 42, 0.5);
+  --color-foreground: #f1f5f9;
+  --color-muted: #94a3b8;
+  --font-space: 'Space Grotesk', 'Space Mono', monospace;
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.6);
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 0 6px rgba(74, 222, 128, 0);
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-card-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  &_brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  &_icon-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &_radar-icon {
+    width: 2rem;
+    height: 2rem;
+    color: var(--color-primary);
+  }
+
+  &_pulse-dot {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 10px;
+    height: 10px;
+    background-color: var(--color-safe);
+    border-radius: 50%;
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  &_title {
+    font-family: var(--font-space);
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--color-foreground);
+
+    // Cyan text glow
+    text-shadow:
+      0 0 8px rgba(34, 211, 238, 0.8),
+      0 0 20px rgba(34, 211, 238, 0.4);
+  }
+
+  // ── Meta (right side) ───────────────────────────────────────────────────────
+  &_meta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  &_clock {
+    font-family: var(--font-space);
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    letter-spacing: 0.1em;
+  }
+
+  &_badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.625rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(74, 222, 128, 0.3);
+    background-color: rgba(74, 222, 128, 0.15);
+    color: var(--color-safe);
+    font-family: var(--font-space);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    filter: brightness(100%);
+    transition: all 0.3s ease-in-out;
+    cursor: default;
+
+    &:hover {
+      filter: brightness(150%);
+      transform: scale(1.05);
+    }
+  }
+}
