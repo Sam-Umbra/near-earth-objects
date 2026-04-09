@@ -1,0 +1,39 @@
+<section class="threats" id="classification">
+  <div class="threats_inner">
+    <div class="threats_header">
+      <span class="threats_eyebrow">Classification</span>
+      <h2 class="threats_title">Threat Levels</h2>
+    </div>
+
+    <div class="threats_list">
+      @for (level of levels; track level.tier; let i = $index) {
+        <div
+          class="threat-card"
+          [appReveal]="'threat-card--visible'"
+          [threshold]="0.1"
+          [class]="'threat-card--' + level.type"
+          [style.transition-delay]="i * 0.1 + 's'"
+        >
+          <div class="threat-card_indicator">
+            <div class="threat-card_dot"></div>
+            <span class="threat-card_tier">{{ level.tier }}</span>
+          </div>
+
+          <div class="threat-card_progress">
+            <div class="threat-card_track">
+              <div
+                class="threat-card_fill"
+                [style.width]="level.width"
+                [style.transition-delay]="i * 0.15 + 0.4 + 's'"
+              ></div>
+            </div>
+          </div>
+
+          <div class="threat-card_meta">
+            <span class="threat-card_risk">{{ level.risk }}</span>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

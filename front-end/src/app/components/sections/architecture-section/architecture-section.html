@@ -1,0 +1,61 @@
+<section id="architecture" class="arch">
+  <div class="arch_radial"></div>
+
+  <div class="arch_inner">
+    <div class="arch_header">
+      <span class="arch_eyebrow">Pipeline</span>
+      <h2 class="arch_title">Data Flow Architecture</h2>
+    </div>
+
+    <div class="arch_pipeline">
+      @for (layer of layers; track layer.label; let i = $index; let last = $last) {
+        <div
+          class="arch-layer"
+          [appReveal]="'arch-layer--visible'"
+          [threshold]="0.2"
+          [class.arch-layer--accent]="layer.color === 'accent'"
+          [class.arch-layer--alt]="i % 2 !== 0"
+          [style.transition-delay]="i * 0.12 + 's'"
+        >
+          <div class="arch-layer_card">
+            <span class="arch-layer_step">0{{ i + 1 }}</span>
+            <div class="arch-layer_body">
+              <span class="arch-layer_sub">{{ layer.sub }}</span>
+              <h3 class="arch-layer_label">{{ layer.label }}</h3>
+              <p class="arch-layer_detail">{{ layer.detail }}</p>
+            </div>
+          </div>
+        </div>
+
+        @if (!last) {
+          <div class="arch_connector" [class.arch_connector--accent]="layer.color === 'accent'">
+            <svg
+              width="16"
+              height="32"
+              viewBox="0 0 16 32"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line
+                x1="8"
+                y1="0"
+                x2="8"
+                y2="24"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-dasharray="4 3"
+              />
+              <path
+                d="M4 20 L8 28 L12 20"
+                stroke="currentColor"
+                stroke-width="1.5"
+                fill="none"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+        }
+      }
+    </div>
+  </div>
+</section>

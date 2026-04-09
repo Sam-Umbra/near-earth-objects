@@ -94,7 +94,6 @@ export class ApproachTimeline {
         ticks: {
           font: { family: "'Space Mono', monospace", size: 11 },
           maxRotation: 0,
-          // Customizing the label: Use "TODAY" for the current date
           callback: (value, index, values) => {
             const dateStr = this.groupedData()[index].date;
             return dateStr === this.todayISO ? 'TODAY' : dateStr.slice(5);

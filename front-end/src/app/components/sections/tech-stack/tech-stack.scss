@@ -1,0 +1,116 @@
+.stack {
+  padding: 8rem 1.5rem;
+  position: relative;
+  &_inner {
+    max-width: 64rem;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  &_header {
+    opacity: 0;
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  &_eyebrow {
+    font-family: var(--font-space, 'Space Mono', monospace);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: hsl(263, 100%, 70%);
+  }
+
+  &_title {
+    font-family: var(--font-space, 'Space Mono', monospace);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: var(--foreground, hsl(210, 40%, 92%));
+    margin: 1rem 0 0;
+  }
+
+  &_grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &_card {
+    opacity: 0;
+    padding: 2rem 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid hsl(228 30% 20% / 0.5);
+    background: hsl(228 40% 10% / 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+      opacity: 0.4;
+    }
+
+    &:hover {
+      border-color: var(--accent-color);
+      transform: translateY(-8px);
+      background: hsl(228 40% 12% / 0.7);
+      box-shadow: 0 15px 30px -10px color-mix(in srgb, var(--accent-color), transparent 80%);
+
+      .stack_card-name {
+        color: var(--accent-color);
+        text-shadow: 0 0 15px color-mix(in srgb, var(--accent-color), transparent 50%);
+      }
+    }
+  }
+
+  &--visible {
+    .stack_header {
+      animation: fade-up 0.8s ease forwards;
+    }
+
+    .stack_card {
+      animation: fade-up 0.6s ease forwards;
+    }
+  }
+
+  &_card-name {
+    font-family: var(--font-space, 'Space Mono', monospace);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground, hsl(210, 40%, 92%));
+  }
+
+  &_card-role {
+    font-family: var(--font-space, 'Space Mono', monospace);
+    font-size: 0.75rem;
+    color: var(--muted-foreground, hsl(215, 20%, 55%));
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

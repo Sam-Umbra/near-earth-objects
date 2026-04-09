@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, ElementRef, inject, viewChildren } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { RevealDirective } from '../../../helpers/reveal.directive';
 
 export interface Feature {
   icon: SafeHtml;
@@ -10,11 +11,11 @@ export interface Feature {
 
 @Component({
   selector: 'app-features-section',
-  imports: [],
+  imports: [RevealDirective],
   templateUrl: './features-section.html',
   styleUrl: './features-section.scss',
 })
-export class FeaturesSection implements AfterViewInit {
+export class FeaturesSection {
   private sanitizer = inject(DomSanitizer);
   private s = (svg: string): SafeHtml => this.sanitizer.bypassSecurityTrustHtml(svg);
 
@@ -74,22 +75,4 @@ export class FeaturesSection implements AfterViewInit {
       color: 'accent',
     },
   ];
-
-  cardRefs = viewChildren<ElementRef>('featureCard');
-
-  ngAfterViewInit(): void {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('features_card--visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15 },
-    );
-
-    this.cardRefs().forEach((ref) => observer.observe(ref.nativeElement));
-  }
 }

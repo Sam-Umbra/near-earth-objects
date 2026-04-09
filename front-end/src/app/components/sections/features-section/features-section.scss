@@ -5,6 +5,8 @@
   &_inner {
     max-width: 72rem;
     margin: 0 auto;
+    position: relative;
+    z-index: 2;
   }
 
   &_header {
@@ -52,25 +54,28 @@
     -webkit-backdrop-filter: blur(8px);
     transition:
       opacity 0.55s ease,
-      transform 0.55s ease,
+      transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
       border-color 0.3s ease,
       background 0.3s ease;
 
     opacity: 0;
-    transform: translateY(28px);
+    transform: translateY(28px) scale(0.98);
 
     &--visible {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
     }
 
     &:hover {
       border-color: hsl(193 100% 50% / 0.3);
       background: hsl(228 40% 10% / 0.75);
+      transform: scale(1.04) translateY(-4px);
+      box-shadow: 0 12px 24px -8px hsl(193 100% 50% / 0.2);
     }
 
     &--accent:hover {
       border-color: hsl(36 100% 50% / 0.3);
+      box-shadow: 0 12px 24px -8px hsl(36 100% 50% / 0.2);
     }
   }
 

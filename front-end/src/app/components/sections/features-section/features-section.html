@@ -8,8 +8,9 @@
     <div class="features_grid">
       @for (feature of features; track feature.title; let i = $index) {
         <div
-          #featureCard
           class="features_card"
+          [appReveal]="'features_card--visible'"
+          [threshold]="0.15"
           [class.features_card--accent]="feature.color === 'accent'"
           [style.transition-delay]="i * 0.08 + 's'"
         >

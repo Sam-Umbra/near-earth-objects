@@ -1,7 +1,7 @@
 <div class="landing-page">
   <header class="navbar">
     <div class="navbar_inner">
-      <div class="navbar_brand">
+      <a class="navbar_brand" href="#hero">
         <svg
           class="navbar_radar-icon"
           xmlns="http://www.w3.org/2000/svg"
@@ -24,18 +24,61 @@
           <path d="m13.41 10.59 5.66-5.66" />
         </svg>
         <span class="navbar_brand-name">SPACE RADAR</span>
-      </div>
+      </a>
 
-      <div class="navbar_links">
-        <a href="#features" class="navbar_link">Features</a>
-        <a href="#architecture" class="navbar_link">Architecture</a>
-        <a href="#classification" class="navbar_link">Classification</a>
-        <a href="#stack" class="navbar_link">Stack</a>
+      <button
+        class="navbar_toggle"
+        (click)="toggleMenu()"
+        [attr.aria-expanded]="isMenuOpen"
+        aria-label="Toggle navigation"
+      >
+        @if (!isMenuOpen) {
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        } @else {
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        }
+      </button>
+
+      <div class="navbar_links" [class.navbar_links--open]="isMenuOpen">
+        <a href="#features" class="navbar_link" (click)="closeMenu()">Features</a>
+        <a href="#architecture" class="navbar_link" (click)="closeMenu()">Architecture</a>
+        <a href="#classification" class="navbar_link" (click)="closeMenu()">Classification</a>
+        <a href="#stack" class="navbar_link" (click)="closeMenu()">Stack</a>
       </div>
     </div>
   </header>
+
   <app-hero-section />
   <app-features-section />
-
+  <app-architecture-section />
+  <app-threat-levels />
+  <app-tech-stack />
   <app-footer />
 </div>

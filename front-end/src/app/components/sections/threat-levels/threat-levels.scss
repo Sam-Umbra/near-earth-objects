@@ -1,0 +1,129 @@
+.threats {
+  padding: 8rem 1.5rem;
+  position: relative;
+
+  &_inner {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  &_header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  &_eyebrow {
+    font-family: var(--font-space, 'Space Mono', monospace);
+    font-size: 0.75rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--danger, hsl(0, 85%, 55%));
+  }
+
+  &_title {
+    font-family: var(--font-space, 'Space Mono', monospace);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    color: var(--foreground, hsl(210, 40%, 92%));
+    margin-top: 1rem;
+  }
+
+  &_list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+.threat-card {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.25rem 1.5rem;
+  background: hsl(228 40% 10% / 0.4);
+  border: 1px solid hsl(228 30% 20% / 0.5);
+  border-radius: 0.75rem;
+  backdrop-filter: blur(10px);
+
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &--visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  &_indicator {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 140px;
+    flex-shrink: 0;
+  }
+
+  &_dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    box-shadow: 0 0 12px currentColor;
+    color: currentColor;
+  }
+
+  &_tier {
+    font-family: var(--font-space, 'Space Mono', monospace);
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+  }
+
+  &_progress {
+    flex: 1;
+  }
+
+  &_track {
+    height: 6px;
+    background: hsl(228 30% 20% / 0.5);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+
+  &_fill {
+    height: 100%;
+    width: 0;
+    border-radius: 100px;
+    background: currentColor;
+    transition: width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  &_risk {
+    font-family: var(--font-space, 'Space Mono', monospace);
+    font-size: 0.875rem;
+    color: var(--muted-foreground, hsl(215, 20%, 55%));
+    width: 80px;
+    text-align: right;
+  }
+
+  &--safe {
+    color: hsl(193, 100%, 50%);
+    border-color: hsl(193 100% 50% / 0.2);
+  }
+
+  &--caution {
+    color: hsl(36, 100%, 50%);
+    border-color: hsl(36 100% 50% / 0.2);
+  }
+
+  &--danger {
+    color: hsl(0, 85%, 55%);
+    border-color: hsl(0 85% 55% / 0.2);
+  }
+
+  &:hover {
+    background: hsl(228 40% 10% / 0.7);
+    transform: scale(1.02);
+    transition: all 0.3s ease;
+  }
+}

@@ -1,0 +1,147 @@
+.arch {
+  padding: 8rem 1.5rem;
+  position: relative;
+
+  &_radial {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  &_inner {
+    max-width: 48rem;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  &_header {
+    text-align: center;
+    margin-bottom: 5rem;
+  }
+
+  &_eyebrow {
+    font-family: var(--font-space, 'Space Mono', monospace);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent, hsl(36, 100%, 50%));
+  }
+
+  &_title {
+    font-family: var(--font-space, 'Space Mono', monospace);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--foreground, hsl(210, 40%, 92%));
+    margin: 1rem 0 0;
+  }
+
+  &_pipeline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &_connector {
+    color: hsl(193 100% 50% / 0.35);
+    display: flex;
+    justify-content: center;
+
+    &--accent {
+      color: hsl(36 100% 50% / 0.35);
+    }
+  }
+}
+
+.arch-layer {
+  width: 100%;
+  opacity: 0;
+  transform: translateX(-30px);
+  transition:
+    opacity 0.55s ease,
+    transform 0.55s ease;
+
+  &--alt {
+    transform: translateX(30px);
+  }
+
+  &--visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  &_card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid hsl(193 100% 50% / 0.2);
+    background: hsl(228 40% 10% / 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition:
+      border-color 0.25s ease,
+      background 0.25s ease,
+      transform 0.55s ease-in-out,
+      box-shadow 0.55s ease-in-out;
+
+    &:hover {
+      border-color: hsl(193 100% 50% / 0.4);
+      background: hsl(228 40% 10% / 0.95);
+      transform: scale(1.025);
+      box-shadow: 0 12px 24px -8px hsl(193 100% 50% / 0.2);
+    }
+  }
+
+  &--accent &_card {
+    border-color: hsl(36 100% 50% / 0.2);
+
+    &:hover {
+      border-color: hsl(36 100% 50% / 0.4);
+      box-shadow: 0 12px 24px -8px hsl(36 100% 50% / 0.2);
+    }
+  }
+
+  &_step {
+    font-family: var(--font-space, 'Space Mono', monospace);
+    font-size: 0.75rem;
+    color: var(--muted-foreground, hsl(215, 20%, 55%));
+    flex-shrink: 0;
+    padding-top: 0.125rem;
+  }
+
+  &_body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  &_sub {
+    font-family: var(--font-space, 'Space Mono', monospace);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--primary, hsl(193, 100%, 50%));
+  }
+
+  &--accent &_sub {
+    color: var(--accent, hsl(36, 100%, 50%));
+  }
+
+  &_label {
+    font-family: var(--font-space, 'Space Mono', monospace);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground, hsl(210, 40%, 92%));
+    margin: 0;
+  }
+
+  &_detail {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--muted-foreground, hsl(215, 20%, 55%));
+    margin: 0.25rem 0 0;
+  }
+}

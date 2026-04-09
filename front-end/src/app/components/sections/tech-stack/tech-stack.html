@@ -1,0 +1,21 @@
+<section class="stack" id="stack" [appReveal]="'stack--visible'" [threshold]="0.2">
+  <div class="stack_inner">
+    <div class="stack_header">
+      <span class="stack_eyebrow">Technical Stack</span>
+      <h2 class="stack_title">Engineered for Precision</h2>
+    </div>
+
+    <div class="stack_grid">
+      @for (tech of stack; track tech.name; let i = $index) {
+        <div
+          class="stack_card"
+          [style.animation-delay]="i * 0.1 + 's'"
+          [style.--accent-color]="tech.color"
+        >
+          <div class="stack_card-name">{{ tech.name }}</div>
+          <div class="stack_card-role">{{ tech.role }}</div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

@@ -65,14 +65,14 @@
 
   &_scroll {
     height: 420px;
-    overflow-x: auto; // horizontal scroll on mobile
+    overflow-x: auto;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
     scrollbar-color: hsl(228, 30%, 25%) transparent;
 
     @media (max-width: 639px) {
-      height: 280px; // shorter on phones
+      height: 280px;
     }
 
     &::-webkit-scrollbar {
@@ -90,7 +90,7 @@
 
   &_table {
     width: 100%;
-    min-width: 520px; // prevents columns crushing on small screens
+    min-width: 520px;
     border-collapse: collapse;
     font-size: 0.875rem;
   }

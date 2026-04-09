@@ -92,7 +92,7 @@ export class WebsocketService {
       diameter_max_km: parseFloat((rng() * 1.5 + 0.9).toFixed(4)),
       velocity_kmph: parseFloat((rng() * (velMax - velMin) + velMin).toFixed(1)),
       miss_distance_km: parseFloat(miss.toFixed(2)),
-      absolute_magnitude: parseFloat((rng() * 10 + 15).toFixed(1)), // typical range 15–25 H
+      absolute_magnitude: parseFloat((rng() * 10 + 15).toFixed(1)),
       approach_date: approachDate,
       confidence_score: parseFloat(confidence.toFixed(4)),
       risk,
